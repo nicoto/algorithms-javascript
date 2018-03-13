@@ -17,21 +17,8 @@
 // M          1,000
 
 function solution(roman) {
-    const key = {
-        'I': 1,
-        'V': 5,
-        'X': 10,
-        'L': 50,
-        'C': 100,
-        'D': 500,
-        'M': 1000
-    };
-    return roman.split('').map((char, i, arr) => {
-        let currentVal = key[char];
-        let nextVal = key[arr[i + 1]] || 0;
-        if (currentVal >= nextVal) return currentVal;
-        else return -currentVal;
-    }).reduce((sum, val, i, arr) => sum += val, 0);
+    const key = { 'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000 };
+    return roman.split('').reduce((sum, v, i, arr) => sum += key[v] < (key[arr[i + 1]] | 0) ? -key[v] : key[v], 0);
 }
 const result = solution('MCMXC'); // "MCMXC" (1000 = M, 900 = CM, 90 = XC)
 console.log(result);
